@@ -7,6 +7,8 @@ const InstructorTab = () => {
     const [myStatus,setMyStatus] = useState('Not Available');
     const [myRating,setMyRating] = useState(0);
     const [name,setName] = useState('');
+    const [role,setRole] = useState('');
+    const [workout,setWorkout] = useState('');
 
    // Define a function to fetch status data
    const fetchAlertStatus = async () => {
@@ -29,6 +31,10 @@ const InstructorTab = () => {
       console.log(data);
       if(data.avgRate)
         setMyRating(data.avgRate)
+      if(data.role)
+        setRole(data.role)
+      if(data.workout)
+        setWorkout(data.workout)
       setMyStatus(data.status); // Assuming the response has a 'status' property
     
     } catch (error) {
@@ -76,6 +82,14 @@ const InstructorTab = () => {
 
        My Rating: {myRating}
       </div>
+
+      {role!=''?<div>
+        Role Assigned is : {role}
+      </div>:''}
+
+      {workout!=''?<div>
+        Workout Assigned is : {workout}
+      </div>:''}
     </div>
   );
 }
