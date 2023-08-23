@@ -8,6 +8,8 @@ const ClientTab = () => {
   const [name, setName] = useState("");
   const [InstructorName, setInstructorName] = useState("");
   const [InstructorRating, setInstructorRating] = useState("");
+  const [invitees, setInvitees] = useState(0);
+  const [invitedBy, setInvitedBy] = useState(null);
 
   // Define a function to fetch status data
   const fetchWorkoutStatus = async () => {
@@ -39,7 +41,7 @@ const ClientTab = () => {
   const declareAvailability = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3002/client/register/" + name
+        "http://localhost:3002/client/register/" + name+'/'+invitees+'/'+(invitedBy?invitedBy:'None')
       );
       const { data } = response;
       console.log(data);
@@ -75,7 +77,12 @@ const ClientTab = () => {
       <br />
       <br />
 
-      <input value={name} onChange={(e) => setName(e.target.value)}></input>
+      <input value={invitedBy} placeholder="Who Invited You" onChange={(e) => setInvitedBy(e.target.value)}></input>
+      <br/>
+      <input value={name} placeholder="your Name" onChange={(e) => setName(e.target.value)}></input>
+      <br/>
+      <input value={invitees==0?'':invitees} placeholder="How many people to invite" onChange={(e) => setInvitees(e.target.value)}></input>
+      <br/>
       <button onClick={declareAvailability}>Register</button>
       <button onClick={fetchMyStatus}>Check Status</button>
       <br />
